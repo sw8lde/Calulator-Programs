@@ -1,0 +1,121 @@
+113 lines of code
+
+Need to create list LHSCR4
+A,B---Ball
+C---Detects if you lost
+D,E---Moving the ball
+F---Bar
+G---Speed
+H---Right side limit
+I---Garbage var
+M---Movement speed
+S---Score
+T---Score incriments
+
+
+:ClrHome
+:Output(1,7,”PONG
+:Output(2,7,”----
+:Output(3,1,”THE CLASSIC GAME BY  SCOTT WILDE
+:Output(6,1,”TURN UP CONTRAST
+:Output(8,5,”[      ]   //6 spaces
+:For(I,1,2
+:Output(8,7,”PLAY
+:rand(34
+:Output(8,7,”    //4 spaces
+:rand(16
+:1->I
+:getKey
+:If Ans:2->I
+:End
+:ClrHome
+:prgmXCLRGRPH
+:Menu(”·····SPEED·····”,”SLOW”,D1,”MEDIUM”,D2,”FAST”,D3,”INSANE”, D4,”HIGHSCORES”,HS,”QUIT”,9
+:Lbl D1
+:randInt(1,2->G
+:10->T:3->M
+:Goto G0
+:Lbl D2
+:randInt(2,4->G
+:14->T:5->M
+:Goto G0
+:Lbl D3
+:randInt(3,5->G
+:18->T:6->M
+:Goto G0
+:Lbl D4
+:randInt(5,7->G
+:24->T:8->M
+:Lbl G0
+:44->A:-50->B:G->D:G->E:38->F:0->C
+:Repeat C
+:Text(1,1,”SCORE: ”,S
+:Text(1,40,”SPEED: ”,abs(D),”·········
+:Pt-Off(A,B,2
+:-D(B>=-12)+D(B<-12->D
+:If B<=-49.5 and A>=F and A<= F+20
+:Then:S+T->S
+:D+.25->D
+:-Ans(E<0)+Ans(E>0->E
+:-D->D
+:End
+:If A<=3 xor A>=89
+:-E->E
+:B<=-56->C
+:A+E->E
+:B-D->B
+:Pt-On(A,B,2
+:getKey
+:If Ans:Then
+:Line(F,-53,F+20,-53,0
+:Line(F,-54,F+20,-54,0
+:F+M(Ans=26)-M(Ans=24
+:If 86<Ans
+:-3
+:If -9>Ans
+:83
+:Ans->F
+:Else:End
+:Line(F,-53,F+20,-53
+:Line(F,-54,F+20,-54
+:End
+:Output(1,1,”****************
+:Output(3,3,”GAME OVER...
+:Output(5,4,”SCORE:
+:Output(5,11,S
+:Output(8,1,”****************
+:SortD(LHSCR4
+:If S>LHSCR4(5:Then
+:S->LHSCR4(5
+:Output(7,2,”NEW HIGHSCORE!
+:Pause:Goto HS
+:Else:End
+:Pause:Goto 9
+:Lbl HS
+:ClrHome
+:SortD(LHSCR4
+:Disp ”   HIGHSCORES”,””,”1ST-”,”2ND-”,”3RD-”,”4TH-”,”5TH-”
+:Output(2,4,----------
+:Output(3,6,LHSCR4(1
+:Output(4,6,LHSCR4(2
+:Output(5,6,LHSCR4(3
+:Output(6,6,LHSCR4(4
+:Output(7,6,LHSCR4(5
+:Pause
+:Lbl 9
+:prgmCLEAR
+:ClrHome:”PLAY AGAIN?
+
+
+some other ones that look good
+spaces
+erases bar and ball
+hits top
+hits bar
+adds to score
+works, but not w/ boundaries
+take out boundaries, make movement speed higher and paddle thicker
+hits sides
+lost
+erases bar and ball
+erases bar and ball

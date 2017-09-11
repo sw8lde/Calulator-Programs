@@ -1,0 +1,35 @@
+:prgmXCLRGRPH
+:ClrHome
+:1->D:1->F
+:Disp “AX{{^2}}+Bx+C
+:Prompt A,B,C
+:ClrHome
+:If 1:Then
+:Lbl 1
+:End
+:A/D->E
+:C/F->G
+:If fPart(E:Then:D+1->D:Goto 1
+:End
+:If fPart(G:Then:1->D:F+1->F:Goto 1
+:End
+:If DG+FE=B:Goto Z
+:D+1->D
+:If D>abs(A
+:-D+1->D
+:If D=0:Then:1->D
+:F+1->F
+:End
+:If F>abs(C
+:-F+1->F
+:If F=0:Then:Disp “CANT BE FACTORED
+:Stop
+:Else:Goto 1
+:End
+:Lbl Z
+:If D<1 and E<1:Then
+:-D->D:-E->E:-F->F:-G->G:End
+:Text(10,8,”(”,D,”X+”,F,”)(”,E,”X+”,G,”)
+:Pause
+:prgmCLEAR
+:ClrHome:”FACTORED

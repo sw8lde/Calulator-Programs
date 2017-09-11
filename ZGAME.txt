@@ -1,0 +1,392 @@
+Need to create  list LHSCR1
+
+Use A,B,C for garbage vars
+Use S for score, and T for how much the score increases
+Use X for ship X value
+Use Z for ship Y value
+Use M,V for how fast the ship moves
+Use D,E,F,G,H for NME Y value
+Use N,O,P,Q,R for NME X values
+Use L for how fast the ships drop
+Use W for increasing L
+Use I,U for detecting if a NME reaches the end
+Use J for resetting NME’s
+Use K to detect if you shot
+
+:Goto 01
+:Lbl GD
+:Text(-1,int(D),N,” //1 space 
+:min({E-A,F-A,G-A,H-A->D:B->N
+:Goto G2
+:Lbl GE
+:Text(-1,int(E),O,” 
+:min({D-A,F-A,G-A,H-A->E:B->O
+:Goto G2
+:Lbl GF
+:Text(-1,int(F),P,” 
+:min({D-A,E-A,G-A,H-A->F:B->P
+:Goto G2
+:Lbl GG
+:Text(-1,int(G),Q,” 
+:min({D-A,E-A,F-A,H-A->G:B->Q
+:Goto G2
+:Lbl GH
+:Text(-1,int(H),R,” 
+:min({D-A,E-A,F-A,G-A->H:B->R
+:Goto G2
+:Lbl 01
+:prgmCLEAR
+:prgmXCLRGRPH
+:For(A,0,92,4
+:Text(0,A,”*
+:End
+:Line(14,-17,80,-17
+:Line(80,-17,80,-29
+:Line(80,-29,14,-29
+:Line(14,-29,14,-17
+:Text(8,12,”‘TRULY AMAZING.’ -IGN
+:For(A,1,8
+:Text(20,A+4,sub(”^(V(^   ”,A,1  //3 spaces
+:End
+:For(A,1,8
+:Text(20,A+84,sub(”^(V(^   ”,A,1  //3 spaces
+:End
+:Text(-1,20,18,”SPACESHIPS
+:Text(32,13,”CALCULATOR  VERSION  //2 spaces
+:Text(38,2,”BY SCOTT WILDE
+:For(A,0,92,4
+:Text(54,A,”*
+:End
+:Text(46,0,”[
+:Text(46,92,”]
+:Text(-1,47,4,”					//14 spaces      
+:Text(46,88,”               //3 spaces
+:rand(12
+:Text(46,4,”PRESS ANY KEY TO CONTINUE
+:rand(34
+:getKey->B
+:If B{{!=}}0
+:-10->A
+:End
+:ClrDraw
+:ClrHome
+:Lbl M
+:Menu(“  WHICH LEVEL?  ”,“EASY”,L1,“MEDIUM”,L2,“HARD”,L3,“INSANE” ,L4,“HOW TO PLAY”,I,“HIGHSCORES”,HS,“QUIT”,9
+:Lbl L1
+:1->L:1->M:.2->T:.001->W
+:Goto G0
+:Lbl L2
+:2->L:1->M:1->T:.005->W
+:Goto G0
+:Lbl L3
+:3->L:2->M:2->T:.01->W
+:Goto G0
+:Lbl L4
+:4->L:2->M:3->T:.015->W
+:Goto G0
+:Lbl I
+:Text(0,0,”-THE [<] AND [>] KEYS					//6 spaces 
+:Text(6,6,”ACCELERATE YOU						inb/w the [   ]
+:Text(13,0,”-THE [     ] KEY STOPS YOU
+:Text(19,0,”-THE [     ] KEY SHOOTS
+:Text(28,0,”-DON’T LET THE ENEMY SHIPS
+:Text(34,6,”REACH THE BOTTOM, AND
+:Text(40,6,”DON’T RUN INTO THE EDGE
+:Text(48,0,”-PRESS [DEL] TO PAUSE, AND
+:Text(54,6,”[ENTER] TO RESUME
+:line(5,-12,45,-12
+:line(22,-18,20,-14
+:line(22,-18,24,-14
+:line(22,-20,20,-24
+:line(22,-20,24,-24
+:Pause:ClrDraw
+:Goto M
+
+:Lbl G0
+:47->X:-54->Z
+:randInt(0,-8->D:randInt(24,70->N
+:randInt(-13,-21->E:randInt(24,70->O
+:randInt(-26,-34->F:randInt(24,70->P
+:randInt(-39,-47->G:randInt(24,70->Q
+:randInt(-52,-60->H:randInt(24,70->R
+:Vertical 14
+:Vertical 76
+:For(A,1,61,3
+:Pt-On(randInt(1,11),-A,3
+:Pt-On(randInt(77,92),-A,3
+:End
+:Text(-1,28,33,”READY
+:rand(34
+:Text(-1,28,33,” SET
+:rand(34				//1 space either side of ‘SET’
+									and ‘GO!’
+:Text(-1,28,33,” GO!
+:rand(16
+:Text(-1,28,33,”      //6 spaces
+
+:Lbl G
+:Line(X,Z-1,X-2,Z-7,0
+:Line(X,Z-1,X+2,Z-7,0
+:Line(X,Z,X,Z-8,0
+:getKey->C
+:V-M(Ans=24)+M(Ans=26->V
+:If C=34:0->V
+:If C=23:Then
+:Text(-1,28,30,”PAUSED
+:Text(36,32,”SCORE:”,S
+:Pause
+:Text(-1,28,30,”      //6 spaces
+:Text(-1,36,32,”      //6 spaces
+:End
+:X+V->X
+:C=25->K
+:If Ans
+:Vertical X
+:If X{{>=}}74 or X{{<=}}16
+:Goto E
+:Line(X,Z-1,X-2,Z-7
+:Line(X,Z-1,X+2,Z-7
+:Line(X,Z,X,Z-8
+
+:Lbl G1
+:S+T->S
+:If D{{>=}}L:Then
+:Text(int(D-L),N,”   
+:Text(int(D),N,”V
+:End
+:If E{{>=}}L:Then
+:Text(int(E-L),O,”   
+:Text(int(E),O,”V
+:End
+:If F{{>=}}L:Then
+:Text(int(F-L),P,”    //3 spaces
+:Text(int(F),P,”V
+:End
+:If G{{>=}}L:Then
+:Text(int(G-L),Q,”   
+:Text(int(G),Q,”V
+:End
+:If H{{>=}}L:Then
+:Text(int(H-L),R,”   
+:Text(int(H),R,”V
+:End
+
+
+:If K:Then:
+:randInt(4,8->A
+:randInt(24,70->B
+:If (O{{<=}}X)(X{{<=}}O+2)(E{{>=}}0:Goto GE
+:If (P{{<=}}X)(X{{<=}}P+2)(F{{>=}}0:Goto GF
+:If (Q{{<=}}X)(X{{<=}}Q+2)(G{{>=}}0:Goto GG
+:If (R{{<=}}X)(X{{<=}}R+2)(H{{>=}}0:Goto GH
+:Else:End
+
+:Lbl G2
+:Goto G
+
+:Lbl E
+:ClrDraw
+:For(A,0,92,4
+:Text(0,A,”*
+:End
+:Text(-1,26,26,”SCORE:”,S
+:SortD(LHSCR1
+:If S>LHSCR1(5
+:Then:S->LHSCR1(5
+:Text(38,8,”***NEW HIGHSCORE!***
+:Goto E1
+:Else:If S<20
+:Then
+:Text(38,23,”EMBARRASSING!
+:Goto E1
+:Else:If S<40
+:Then:Text(38,31,”YOU SUCK!
+:Goto E1
+:Else:If S<80
+:Then:Text(38,35,”NOT BAD
+:Goto E1
+:Else:If S<120
+:Then:Text(38,28,”PRETTY GOOD!
+:Goto E1
+:Else:Text(38,33,”AMAZING!
+
+:Lbl E1
+:End
+:For(A,0,92,4
+:Text(52,A,”*
+:End
+:Pause:Goto 9
+:Lbl HS
+:ClrDraw
+:SortD(LHSCR1
+:For(A,0,92,4
+:Text(0,A,”*
+:End
+:Text(-1,8,0,”   HIGHSCORES   //3 spaces
+:For(A,0,92,4
+:Text(16,A,”*
+:End
+:Text(-1,24,0,”FIRST: ”,LHSCR1(1
+:Text(32,0,”2ND: ”,LHSCR1(2
+:Text(39,0,”3RD: ”,LHSCR1(3
+:Text(46,0,”4TH: ”,LHSCR1(4
+:Text(53,0,”5TH: ”,LHSCR1(5
+:Pause
+:Lbl 9
+:prgmCLEAR
+:ClrHome:”PLAY AGAIN?
+
+
+
+
+
+:For(Y,62,6
+:For(X,1,94,6
+:Text(X,Y,”*
+:End
+:End
+
+
+
+
+
+suggested
+
+
+
+
+:Lbl G0
+:47->X:-54->Z
+:seq(13X,X,0,4
+:-randInt(Ans,Ans+8->LA
+:Vertical 76
+:For(A,1,61,3
+:Pt-On(randInt(1,11),-A,3
+:Pt-On(randInt(77,92),-A,3
+:End
+:For(A,1,4
+:Text(-1,28,33,sub(”READY·SET··GO!······”,5A-4,5
+:rand(34-18(A=4
+:End
+:Lbl G
+:Line(X,Z-1,X-2,Z-7,0
+:Line(X,Z-1,X+2,Z-7,0
+:Line(X,Z,X,Z-8,0
+:getKey->C
+:If Ans=23:Then
+:Text(-1,28,30,”PAUSED
+:Text(36,32,”SCORE:”,S
+:Pause
+:Text(-1,28,30,”······
+:Text(-1,36,32,”······
+:End
+:V-M(Ans=24)+M(Ans=26
+:Ans(C{{!=}}34->V
+:X+Ans->X
+:If C=25
+:Vertical Ans
+:If 29{{<=}}abs(Ans-45
+:Goto E
+:Line(Ans,Z-1,Ans-2,Z-7
+:Line(Ans,Z-1,Ans+2,Z-7
+:Line(Ans,Z,Ans,Z-8
+:Lbl G1
+:S+T->S
+:For(A,1,5
+:LA(A
+:If Ans{{>=}}L:Then
+:Text(int(Ans-L),LB(A),”···
+:Text(int(Ans),N,”V
+:End
+:End
+//Let's see Lbl GD through Lbl GH before I get started on the :If K:Then block.
+:Lbl G2
+:LA+L->LA:L+W->L
+:If max(LA{{>=}}58:Goto E
+:Goto G
+
+
+
+and anther 1
+
+:Lbl A                   //If there are any references to Label G0, change them to A, otherwise lose the label.
+:47->X:-54->Z
+:randInt(0,-8->D:randInt(24,70->N
+:randInt(-13,-21->E:randInt(24,70->O
+:randInt(-26,-34->F:randInt(24,70->P
+:randInt(-39,-47->G:randInt(24,70->Q
+:randInt(-52,-60->H:randInt(24,70->R
+:Vertical 14
+:Vertical 76
+:For(A,1,61,3
+:Pt-On(randInt(1,11),-A,3
+:Pt-On(randInt(77,92),-A,3
+:End
+:Text(-1,28,33,”READY
+:rand(34
+:Text(-1,28,41,”SET
+:rand(34
+:Text(-1,28,41,”GO!
+:rand(16
+:Text(-1,28,33,”      //6 spaces
+:Lbl G
+:Line(X,Z-1,X-2,Z-7,0
+:Line(X,Z-1,X+2,Z-7,0
+:Line(X,Z,X,Z-8,0
+:getKey->C
+:V-M((Ans=24)+(Ans=26->V
+:If C=34:Delvar V
+:If C=23:Then
+:Text(-1,28,30,”PAUSED
+:Text(36,32,”SCORE:”,S
+:Pause
+:For({{theta}},7,9,2
+:Text(-1,4{{theta}},23+{{theta}},”      //6 spaces
+:End
+:End
+:X+V->X
+:C=25->K
+:If Ans
+:Vertical X
+:If X{{>=}}74 or X{{<=}}16
+:Goto E
+:Line(X,Z-1,X-2,Z-7
+:Line(X,Z-1,X+2,Z-7
+:Line(X,Z,X,Z-8
+:Lbl B                   //Again, any references to G1 must be replaced by B.
+:S+T->S
+:If D{{>=}}L:Then
+:Text(int(D-L),N,”   
+:Text(int(D),N,”V
+:End
+:If E{{>=}}L:Then
+:Text(int(E-L),O,”   
+:Text(int(E),O,”V
+:End
+:If F{{>=}}L:Then
+:Text(int(F-L),P,”    //3 spaces
+:Text(int(F),P,”V
+:End
+:If G{{>=}}L:Then
+:Text(int(G-L),Q,”   
+:Text(int(G),Q,”V
+:End
+:If H{{>=}}L:Then
+:Text(int(H-L),R,”   
+:Text(int(H),R,”V
+:End
+:If K:Then:
+:randInt(4,8->A
+:randInt(24,70->B
+:Line(X,Z+1,X,Ymax,0    //Do so only if, as with mine, your graph window is 94=Xmax and 62=Ymax.
+:If (N{{<=}}X)(X{{<=}}N+2)(D{{>=}}0:Goto D    //Any occurences of GD, GE, GF, GG, and GH must be replaced with D, E, F, G, and H.
+:If (O{{<=}}X)(X{{<=}}O+2)(E{{>=}}0:Goto E
+:If (P{{<=}}X)(X{{<=}}P+2)(F{{>=}}0:Goto F
+:If (Q{{<=}}X)(X{{<=}}Q+2)(G{{>=}}0:Goto G
+:If (R{{<=}}X)(X{{<=}}R+2)(H{{>=}}0:Goto H
+:Else:End
+:Lbl C                    //Again, references to G2 must be replaced by C
+:D+L->D:E+L->E:F+L->F:G+L->G:H+L->H:L+W->L
+:If D{{>=}}58 or E{{>=}}58 or F{{>=}}58 or G{{>=}}58 or H{{>=}}58:Goto E
+:Goto G
+

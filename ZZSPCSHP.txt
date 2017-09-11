@@ -1,0 +1,265 @@
+263 lines of code
+
+Need to create  lists LHSCR1,LA,LB
+
+Use A,B,C for garbage vars
+Use G for detecting if you died
+Use S for score, and T for how much the score increases
+Use X for ship X value
+Use Z for ship Y value
+Use M,V for how fast the ship moves
+Use L for how fast the ships drop
+Use W for increasing L
+Use K to detect if you shot
+
+:prgmCLEAR
+:prgmXCLRGRPH
+:For(A,0,92,4
+:Text(0,A,”*
+:End
+:Line(14,-17,80,-17
+:Line(80,-17,80,-29
+:Line(80,-29,14,-29
+:Line(14,-29,14,-17
+:Text(8,12,”‘TRULY AMAZING.’ -IGN
+:For(A,1,8
+:Text(20,A+4,sub(”^(V(^···”,A,1
+:Text(20,A+84,sub(”^(V(^···”,A,1
+:End
+:Text(-1,20,18,”SPACESHIPS
+:Text(32,13,”CALCULATOR··VERSION
+:Text(38,2,”BY SCOTT WILDE
+:For(A,0,92,4
+:Text(54,A,”*
+:End
+:Text(46,0,”[
+:Text(46,92,”]
+:While A{{!=}}-10
+:Text(-1,47,4,”··············      
+:Text(46,88,”···
+:rand(12
+:Text(46,4,”PRESS ANY KEY TO CONTINUE
+:rand(34
+:getKey->B
+:If B{{!=}}0
+:-10->A
+:End
+:ClrDraw
+:ClrHome
+:Lbl M
+:Menu(“  WHICH LEVEL?  ”,“EASY”,L1,“MEDIUM”,L2,“HARD”,L3,“INSANE” ,L4,“HOW TO PLAY”,I,“HIGHSCORES”,HS,“QUIT”,9
+:Lbl L1
+:1->L:1->M:1->T:.002->W
+:Goto G0
+:Lbl L2
+:1.5->L:1->M:2->T:.005->W
+:Goto G0
+:Lbl L3
+:2->L:2->M:3->T:.01->W
+:Goto G0
+:Lbl L4
+:3->L:2->M:5->T:.015->W
+:Goto G0
+:Lbl I
+:Text(0,0,”-THE [<] AND [>] KEYS
+:Text(6,6,”ACCELERATE YOU
+:Text(13,0,”-THE [······] KEY STOPS YOU
+:Text(19,0,”-THE [······] KEY SHOOTS
+:Text(28,0,”-DON’T LET THE ENEMY SHIPS
+:Text(34,6,”REACH THE BOTTOM, AND
+:Text(40,6,”DON’T RUN INTO THE EDGE
+:Text(48,0,”-PRESS [DEL] TO PAUSE, AND
+:Text(54,6,”[ENTER] TO RESUME
+:line(5,-12,45,-12
+:line(22,-18,20,-14
+:line(22,-18,24,-14
+:line(22,-20,20,-24
+:line(22,-20,24,-24
+:Pause:ClrDraw
+:Goto M
+
+:Lbl G0
+:47->X:-54->Z
+:seq(13X,X,0,4
+:-randInt(Ans,Ans+8->LA
+:randInt(24,70,5->LB
+:Vertical 14
+:Vertical 76
+:For(A,1,61,3
+:Pt-On(randInt(1,11),-A,3
+:Pt-On(randInt(77,92),-A,3
+:End
+:For(A,1,4
+:Text(-1,28,33,sub(”READY·SET··GO!······”,5A-4,5
+:rand(34-18(A=4
+:End
+:Repeat G
+:Line(X,Z-1,X-2,Z-7,0
+:Line(X,Z-1,X+2,Z-7,0
+:Line(X,Z,X,Z-8,0
+:getKey->C
+:If Ans=23
+:Goto PA
+:Lbl PB
+:V-M(Ans=24)+M(Ans=26
+:Ans(C{{!=}}34->V
+:X+Ans->X
+:If C=25
+:Vertical Ans
+:Line(Ans,Z-1,Ans-2,Z-7
+:Line(Ans,Z-1,Ans+2,Z-7
+:Line(Ans,Z,Ans,Z-8
+:If 29{{<=}}abs(Ans-45
+:1->G
+:If C=15:2->G
+:S+T->S
+:For(A,1,5
+:LA(A
+:If Ans{{>=}}L:Then
+:Text(int(Ans-L),LB(A),”···
+:Text(int(Ans),LB(A),”V
+:End
+:End
+:If C=25:Then
+:Line(X,Z+1,X,62,0
+:LA{{>=}}0 and 1{{>=}}abs(X-1-LB
+:min(6not(Ans)+AnscumSum(not(0Ans->C
+:If Ans{{!=}}6:Then
+:Text(int(LA(Ans)),LB(Ans),”···
+:E9->LA(Ans
+:min(LA-randInt(4,8->LA(C
+:randInt(24,70->LB(C
+:End
+:End
+:LA+L->:L+W->L
+:If max(LA{{>=}}58:1->G
+:End
+
+:If G=2:Then
+:For(A,0,118,4
+:Line(A,-31,A-7,-31
+:Line(A-1,-31,A-6,-29
+:Line(A-1,-31,A-6,-33
+:Line(A,-31,A-7,-31,0
+:Line(A-1,-31,A-6,-29,0
+:Line(A-1,-31,A-6,-33,0
+:Pt-On(A-8,-31
+:Pt-Off(A-24,-31
+:If A>52:Pt-On(47,-31,3
+:End
+:For(A,1,31
+:Pxl-Change(31,47
+:rand(32-A
+:End
+:Text(28,33,”KABOOOM!
+:rand(10
+:For(A,1,56
+:Circle(47,-31,A,{
+:End
+:rand(28
+:ClrDraw
+:2->B
+:For(A,1,23
+:Text(20,B,sub(”YOU SACRIFICED YOURSELF”,A,1
+:rand(2
+:B+4->B
+:End
+:4->B
+:For(A,1,22
+:Text(28,B,sub(”TO SAVE THE WORLD FROM”,A,1
+:rand(2
+:B+4->B
+:End
+:6->B
+:For(A,1,21
+:Text(36,B,sub(”THE ENEMY INVASION...”,A,1
+:rand(2
+:B+4->B
+:End
+:Pause:Goto E
+:Else:End
+
+
+:Lbl E
+:ClrList LA
+:ClrList LB
+:ClrDraw
+:For(A,0,92,4
+:Text(0,A,”*
+:End
+:Text(-1,26,26,”SCORE:”,S
+:SortD(LHSCR1
+:If S>LHSCR1(5
+:Then:S->LHSCR1(5
+:Text(38,8,”***NEW HIGHSCORE!***
+:Goto E1
+:Else:If S<20
+:Then
+:Text(38,23,”EMBARRASSING!
+:Goto E1
+:Else:If S<40
+:Then:Text(38,31,”YOU SUCK!
+:Goto E1
+:Else:If S<80
+:Then:Text(38,35,”NOT BAD
+:Goto E1
+:Else:If S<120
+:Then:Text(38,28,”PRETTY GOOD!
+:Goto E1
+:Else:Text(38,33,”AMAZING!
+:Lbl E1
+:End
+:For(A,0,92,4
+:Text(52,A,”*
+:End
+:Pause:Goto 9
+:Lbl HS
+:ClrDraw
+:SortD(LHSCR1
+:For(A,0,92,4
+:Text(0,A,”*
+:End
+:Text(-1,8,0,”···HIGHSCORES···
+:For(A,0,92,4
+:Text(16,A,”*
+:End
+:Text(-1,24,0,”FIRST: ”,LHSCR1(1
+:Text(32,0,”2ND: ”,LHSCR1(2
+:Text(39,0,”3RD: ”,LHSCR1(3
+:Text(46,0,”4TH: ”,LHSCR1(4
+:Text(53,0,”5TH: ”,LHSCR1(5
+:Pause:Goto 9
+:Lbl PA
+:ClrHome:Disp ”·····PAUSED
+:Disp S
+:Output(2,1,”SCORE:
+:Disp LHSCR1(1
+:Output(3,1,”HIGHSCORE:
+Output(4,1,”···WHAT DO YOU·····WANT TO DO?
+:Output(6,2,”HIDE!!!
+:Output(7,2,”KEEP PLAYING
+:Output(8,2,”GIVE UP
+:6->B
+:Repeat A=105
+:Output(B,1,”>
+:getKey->A
+:If Ans
+:Output(B,1,”·
+:B+(Ans=34)-(Ans=25->B
+:End
+:If B=8:Goto E
+:If B=6:Then
+:ClrHome
+:For(A,1,2
+:Input ””,B
+:Disp B
+:1->A
+:If B=PLAY
+:2->A
+:End
+:End
+:Goto PB
+
+:Lbl 9
+:prgmCLEAR
+:ClrHome:”PLAY AGAIN?

@@ -1,0 +1,10 @@
+:CoordOff
+:GridOff
+:AxesOff
+:LabelOff
+:FnOff
+:ClrDraw
+:0->Xmin
+:0->Ymax
+:-62->Ymin
+:94->Xmax

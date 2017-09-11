@@ -1,0 +1,25 @@
+:Normal
+:Float
+:Degree
+:Func
+:Connected
+:Sequential
+:Real
+:Full
+:AUTO
+:MATHPRINT
+:n/d
+:DelVar Y1DelVar Y2DelVar Y3DelVar Y4DelVar Y5DelVar Y6DelVar Y7DelVar Y8DelVar Y9DelVar Y0
+:ClrDraw
+:FnOn
+:ZStandard
+:PlotsOff
+:CoordOn
+:AxesOn
+:GridOff
+:LabelOn
+:ExprOff
+:1->Xscl:1->Yscl:1->Xres
+:Clear Entries
+:DelVar ADelVar BDelVar CDelVar DDelVar EDelVar FDelVar GDelVar HDelVar IDelVar JDelVar KDelVar LDelVar MDelVar NDelVar ODelVar PDelVar QDelVar RDelVar SDelVar TDelVar UDelVar VDelVar WDelVar XDelVar YDelVar ZDelVar {{Theta}}DelvarStr1 DelvarStr2 DelvarStr3 DelvarStr4 DelvarStr5 DelvarStr6 DelvarStr7 DelvarStr8 DelvarStr9 DelvarStr0
+:ClrHome:0

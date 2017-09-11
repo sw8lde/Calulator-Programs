@@ -1,0 +1,49 @@
+:For(I,1,7
+:Text(20,I,sub(”[[[[[  ”,A,1
+:End
+
+A,B--Ship pos.
+I,J--Garbage vars
+S--Score
+T--How fast the cubes move
+
+
+
+:prgmCLEAR
+:prgmXCLRGRPH
+:ClrHome
+:For(I,0,92,2
+:Text(0,I,”’
+:End
+:Line(14,-17,80,-17
+:Line(80,-17,80,-29
+:Line(80,-29,14,-29
+:Line(14,-29,14,-17
+:Text(8,10,”THE CLASSIC GAME OF...
+:Text(-1,20,18,”CUBEFIELD
+:Text(32,12,”CALCULATOR  VERSION   //2 spaces
+:Text(38,2,”BY SCOTT WILDE
+:For(I,0,92,2
+:Text(54,I,”’
+:End
+:Text(-1,46,30,”[    ]
+:For(I,1,2
+:Text(46,40,”PLAY
+:rand(34
+:Text(-1,46,40,”     
+:rand(16
+:1->I
+:getKey
+:If Ans:2->I
+:End
+:Menu(”   CUBEFIELD   ”,”PLAY”,G0,”HIGHSCORES”,HS,”QUIT”,9
+:Lbl G0
+:ClrDraw
+:0->S:28->A
+:Lbl G1
+:Repeat pxl-Test(A+3,5
+:Pxl-Off(A-1,3
+:getKey
+:A-(Ans=25)+(Ans=34->A
+:Text(-1,A,2,”>
+:End

@@ -1,0 +1,96 @@
+107 lines of code
+
+:ClrHome
+:LabelOff
+:FnOff
+:Menu(“WHICH FUNCTION?”,“SINE”,S,“COSINE”,C,“TANGENT”,T,“QUIT”,9
+:Lbl S
+:Disp “Y=C+Asin(B(X+D{{pi}}),“”
+:Prompt C,A,B,D
+:abs(A)->I
+:2/B->J
+:J/4->K
+:C->S
+:3I+C->Ymax
+:-2I+C->Ymin
+:-J{{pi}}-D{{pi}}->Xmin
+:2J{{pi}}-D{{pi}}->Xmax
+:K{{pi}}/2->Xscl
+:I/2->Yscl
+:Radian
+:DrawF C+Asin(B(X+D{{pi}})
+:Goto {{theta}}
+:Lbl C
+:Disp “Y=C+Acos(B(X+D{{pi}}),“”
+:Prompt C,A,B,D
+:abs(A)->I
+:2/B->J
+:J/4->K
+:A+C->S
+:3I+C->Ymax
+:-2I+C->Ymin
+:-J{{pi}}-D{{pi}}->Xmin
+:2J{{pi}}-D{{pi}}->Xmax
+:K{{pi}}/2->Xscl
+:I/2->Yscl
+:Radian
+:DrawF C+Acos(B(X+D{{pi}})
+:Goto {{theta}}
+:Lbl T
+:Disp “Y=C+Atan(B(X+D{{pi}}),“”
+:Prompt C,A,B,D
+:5->I
+:1/B->J
+:J/4->K
+:C->S
+:3I+C->Ymax
+:-2I+C->Ymin
+:-J{{pi}}-D{{pi}}->Xmin
+:2J{{pi}}-D{{pi}}->Xmax
+:K{{pi}}/2->Xscl
+:I/2->Yscl
+:Radian
+:DrawF C+Atan(B(X+D{{pi}}
+:0->A
+:Text(0,60,“INFINITY
+:Text(56,58,“-INFINITY
+:Goto {{theta}}1
+:Lbl {{theta}}
+:Text(16,78,I+C
+:Text(52,78,-I+C
+:Lbl {{theta}}1
+:If D=0:Then
+:Text(0,0,“PS= NONE  ”
+:Else:If D<0:Then
+:Text(0,0,“PS= RIGHT ”,abs(D),“{{pi}}
+:Else:If D>0:Then
+:Text(0,0,“PS= LEFT ”,abs(D),“{{pi}}
+:End
+:End
+:If C=0:Then
+:Text(7,0,“VS= NONE  ”
+:Else:If C<0:Then
+:Text(7,0,“VS= DOWN ”,abs(C
+:Else:If C>0:Then
+:Text(7,0,“VS= UP ”,abs(C
+:End
+:End
+:Pause:FRAC
+:ClrHome
+:If A<0:Then
+:Disp abs(A)
+:Output(1,1,“A=(FLIP)
+:Else
+:Disp abs(A)
+:Output(1,1,“A=
+:End
+:Disp J
+:Output(2,1,“P=(IN {{pi}})
+:Disp K
+:Output(3,1,“I=(IN {{pi}})
+:Disp “”,“”,-D,S
+:Output(5,1,“START PT=(IN {{pi}})
+:Pause
+:Lbl 9
+:prgmCLEAR
+:ClrHome:”SOLVED

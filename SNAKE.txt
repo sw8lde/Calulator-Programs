@@ -1,0 +1,113 @@
+130 lines of code
+
+Need to create list LHSCR2
+
+Use C for garbage var
+Use L for score
+Use P,Q for how many pxl’s there are
+Use A,B for drawing the snake
+Use E for erasing the snake
+Use F for how much the snake grows
+Use R for getKey
+Use H for detecting if its on really easy
+
+:Lbl 1
+:prgmXCLRGRPH
+:50->Q
+:Lbl C
+:0->L
+:ClrDraw
+:0->H
+:Menu(“DIFFICULTY”,“REALLY EASY”,L,“EASY”,M,“MEDIUM”,N,“HARD”,O, “INSANE”,P
+:Lbl L
+:0->P:1->H
+:.001->F:Goto 10
+:Lbl M
+:1->P:F:Goto 10
+:Lbl N
+:1.75->P:Goto 10
+:Lbl 0
+:2.5->P:Goto 10
+:Lbl P
+:4->P
+:Lbl 10
+:Horizontal -7
+:For(C,0,QP
+:Pxl-On(randInt(7,62),randInt(1,93
+:End
+:26->R
+:48->B
+:32->A
+:47->C
+:For(D,26,42
+:Pxl-Off(C,D
+:Pxl-Off(C+1,D
+:Pxl-Off(C-1,D
+:End
+:Text(0,12,“READY...”
+:rand(55
+:Text(0,44,“SET...
+:rand(55
+:Text(0,68,“GO!!!
+:Repeat pxl-Test(A,B
+:Pxl-On(A,B
+:L+1->L
+:getKey
+:If Ans:Ans->R
+:B-(R=24)+(R=26->B
+:A-(R=25)+(R=34->A
+:End
+:If H:0->L
+:ClrHome
+:Output(1,1,“****************
+:Output(3,4,“GAME OVER
+:Output(6,2,“BY SCOTT WILDE
+:Output(8,1,“****************
+:Lbl {{theta}}
+:Pause
+:ClrHome
+:Output(1,1,“****************
+:Output(4,4,“SCORE:
+:Output(4,10,L
+:Output(8,1,“****************
+:SortD(LHSCR2
+:If L>LHSCR2(5
+:Then:L->LHSCR2(5
+:Output(6,1,“NEW HIGHSCORE!
+:Pause:Goto HS
+:Else:If L{{<=}}10
+:Then:Output(6,2,“EMBARRASSING!!
+:Pause:Goto 1
+:Else:If L{{<=}}100
+:Then:Output(6,3,“YOU SUCK!!
+:Pause:Goto 1
+:Else:If L{{<=}}300
+:Then:Output(6,5,“NOT BAD
+:Pause:Goto 1
+:Else:If L{{<=}}500
+:Then:Output(6,6,“GOOD
+:Pause:Goto 1
+:Else:If L{{<=}}800
+:Then:Output(6,5,“GREAT!
+:Pause:Goto 1
+:Else:If L>800
+:Then:Output(6,4,“AMAZING!
+:Pause
+:For(I,1,8
+:Output(I,1,”*+*+*+*+*+*+*+*+*+*+*
+:End
+:Pause:Goto 1
+:Lbl HS
+:prgmXCLRGRPH
+:SortD(LHSCR2
+:Text(-1,0,6,“**HIGHSCORES**
+:Horizontal 72
+:Text(12,10,“1-”,LHSCR2(1
+:Text(22,10,“2-”,LHSCR2(2
+:Text(32,10,“3-”,LHSCR2(3
+:Text(42,10,“4-”,LHSCR2(4
+:Text(52,10,“5-”,LHSCR2(5
+:Pause
+:Lbl 2
+:prgmCLEAR
+:ClrHome:“PLAY AGAIN?

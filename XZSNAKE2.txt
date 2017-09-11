@@ -1,0 +1,199 @@
+224 lines of code
+
+Need to create lists called LSNK and LHSCR3
+
+Use A,B for garbage vars
+Use C for getKey
+Use L for level
+Use M for good dots per level
+Use S,T for score and score increments
+Use N for putting out bad dots
+Use D,E for Pt-On
+Use F,G for drawing snake
+Use H,I for erasing snake
+Use I for detecting if you lost
+
+:1->L
+:0->S
+:prgmXCLRGRPH
+:ClrDraw
+:Text(-1,2,61,”:  <
+:Line(54,-4,61,-1
+:Line(62,-1,72,-5
+:Line(54,-6,61,-9
+:Line(62,-9,7,2,-5
+:Line(0,-5,54,-5
+:Line(12,-4,53,-4
+:Line(12,-6,53,-6
+:Line(72,-5,78,-5
+:Line(80,-5,82,-2
+:Line(80,-5,82,-8
+:For(A,86,88,2
+:For(B,-6,-4
+:Pt-On(A,B,2
+:End
+:End
+:Text(14,14,”THE CLASSIC GAME OF
+:Text(-1,24,33,”SNAKE
+:Text(36,12,”CALCULATOR VERSION
+:Text(42,1,”BY SCOTT WILDE
+:Text(-1,52,30,”[     ]
+:For(A,1,2
+:Text(52,40,”PLAY
+:rand(34
+:Text(-1,52,40,”     
+:rand(16
+:1->A
+:getKey
+:If Ans:2->A
+:End
+:ClrDraw
+:ClrHome
+:Menu(”  DIFFICULTY  ”,”EASY”,DE,”MEDIUM”,DM,”HARD”,DH,”INSANE”,DI, ”HIGHSCORES”,HS,”QUIT”,9
+:Lbl DE
+:10->T
+:20->N
+:10->I
+:Goto G0
+:Lbl DM
+:18->T
+:36->N
+:10->I
+:Goto G0
+:Lbl DH
+:26->T
+:52->N
+:10->I
+:Goto G0
+:Lbl DI
+:34->T
+:68->N
+:10->I
+:Lbl G0
+:ClrDraw
+:Horizontal -7
+:Horizontal -62
+:Vertical 0
+:Vertical 94
+:Line(0,0,0,-6,0
+:Line(94,0,94,-6,0
+:Text(0,0,”LEVEL: ”,L
+:31->F:48->G
+:1->H:26->C
+:1->M
+:Pxl-On(randInt(8,61),randInt(1,93
+:End
+:Lbl G2
+:randInt(-9,-61->D
+:randInt(2,92->E
+:pxl-Test(-D,E
+:If Ans:Goto G2
+:Pt-On(E,D,2
+:Pt-On(E,D
+:Text(0,38,”SCORE: ”,S
+:Repeat pxl-Test(F,G
+:Pxl-On(F,G
+:getkey
+:If Ans:Ans->C
+:G-(C=24)+(C=26->G
+:F-(C=25)+(C=34->F
+:G+F/100->LSNK(H
+:H+1->H
+:If H>I
+:Pxl-Off(100fPartLSNK(H-I,iPartLSNK(H-I)
+:If H>500:Goto WR
+:End
+
+:If F<=-D+1 and F>=-D-1 and G<=E+1 and G>=E-1
+:Then:Goto MR
+:Else:Goto E
+:Lbl MR
+:End
+:If M=3:Then
+:L+1->L:S+LT->S:I-10->I:N+5->N
+:ClrList LSNK
+:Text(38,26,”SCORE: ”,S
+:Pause
+:Goto RL
+:Else:If Mx=3:Then
+:M+1->M:S+T->S:I+5->I
+:Pt-Off(E,D
+:Goto RM
+:End
+:Lbl RL
+:End
+:Goto G0
+:Lbl RM
+:End
+:Goto G2
+:Lbl WR
+:ClrDraw
+:Text(-1,0,23,”!!STOP!!
+:Text(8,0,”YOU ARE ABOUT TO USE UP TOO
+:Text(16,0,”MUCH MEMORY. THANKFULLY,
+:Text(24,0,” THE GENIUS WHO DESIGNED
+:Text(32,0,”THIS GAME PUT IN A WARNING.
+:Text(40,0,”THE GAME WILL NOW END.
+:Text(48,0,”TRY TO WIN FASTER NEXT TIME!
+:For(A,1,2
+:Text(-1,0,23,”      //8 spaces
+:rand(6
+:Text(-1,0,23,”!!STOP!!
+:rand(14
+:1->A
+:getKey
+:If Ans:2->A
+:End
+:Lbl E
+:End
+:ClrList LSNK
+:ClrDraw
+:For(A,0,92,4
+:Text(0,A,”*
+:End
+:Text(-1,26,26,”SCORE: ”,S
+:SortD(LHSCR3
+:If S>LHSCR3(5
+:Then:S->LHSCR3(5
+:Text(38,8,”***NEW HIGHSCORE!***
+:Goto E1
+:Else:If S<80
+:Then
+:Text(38,23,”EMBARRASSING!
+:Goto E1
+:Else:If S<160
+:Then:Text(38,31,”YOU SUCK!
+:Goto E1
+:Else:If S<240
+:Then:Text(38,35,”NOT BAD
+:Goto E1
+:Else:If S<320
+:Then:Text(38,28,”PRETTY GOOD!
+:Goto E1
+:Else:Text(38,33,”AMAZING!
+
+:Lbl E1
+:End
+:For(A,0,92,4
+:Text(52,A,”*
+:End
+:Pause:Goto 9
+:Lbl HS
+:ClrDraw
+:SortD(LHSCR3
+:For(A,0,92,4
+:Text(0,A,”*
+:End
+:Text(-1,8,0,”   HIGHSCORES   //3 spaces
+:For(A,0,92,4
+:Text(16,A,”*
+:End
+:Text(-1,24,0,”FIRST: ”,LHSCR3(1
+:Text(32,0,”2ND: ”,LHSCR3(2
+:Text(39,0,”3RD: ”,LHSCR3(3
+:Text(46,0,”4TH: ”,LHSCR3(4
+:Text(53,0,”5TH: ”,LHSCR3(5
+:Pause
+:Lbl 9
+:prgmCLEAR
+:ClrHome:”PLAY AGAIN?
